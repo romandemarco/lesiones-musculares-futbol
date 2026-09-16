@@ -2,8 +2,6 @@ Lesiones musculares en el fútbol europeo
 
 Análisis de 31.203 registros de ausencias en las cinco grandes ligas europeas, temporadas 2024/25 a 2026/27. El foco está en las lesiones musculares: frecuencia, duración y, sobre todo, recurrencia.
 
-📊 Ver la presentación interactiva
-
 La pregunta
 
 "Muscular" agrupa cosas distintas: isquiotibiales, cuádriceps, gemelo, aductores. ¿Se diferencian en algo que sirva para planificar?
@@ -49,6 +47,7 @@ No se pueden comparar ligas. Premier especifica el subtipo en el 72% de los caso
 La rodilla no se desagrega. El 96% de los registros dice únicamente "Knee Injury": no se separa un esguince de una rotura de ligamento cruzado.
 No hay exposición. Sin minutos jugados no se puede calcular incidencia por 1.000 horas, el estándar en epidemiología deportiva. Todas las cifras son conteos absolutos.
 El 45% de las musculares no tiene subtipo. Y si los clubes son más vagos con las lesiones graves, ese grupo estaría sesgado hacia casos serios.
+
 Archivos
 Archivo	
 bajar_lesiones.R	Descarga vía API y armado de la base cruda
@@ -57,6 +56,7 @@ episodios.R	Construcción de episodios con duración
 graficos.R	Gráficos del informe (ggplot2)
 presentacion_lesiones.html	Presentación interactiva, autocontenida
 informe_lesiones.pptx	Versión editable
+
 Cómo reproducirlo
 r
 # 1. Crear un archivo .Renviron con la clave de api-football.com:
@@ -76,4 +76,6 @@ Incorporar minutos jugados (fixtures/lineups) para calcular incidencia por expos
 Cruzar con densidad de calendario: días de descanso entre partidos.
 Modelo de riesgo individual: estimar probabilidad de recaída en función del tiempo transcurrido desde el alta.
 
-Román Demarco · Estudiante avanzado de Kinesiología y Fisiatría (UNAHUR) romandemarco39@gmail.com · github.com/romandemarco
+Román Demarco · Estudiante de Kinesiología y Fisiatría (UNAHUR) romandemarco39@gmail.com · github.com/romandemarco
+
+
