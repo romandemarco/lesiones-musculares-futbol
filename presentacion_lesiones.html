@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesiones musculares en el fútbol europeo — Román Demarco</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --base:#0B1B2E; --line:#22405F; --ink:#EAF0F7; --muted:#8AA3BE; --dim:#647F9C;
+  --coral:#FF6B5B; --aqua:#4DD9C0; --steel:#3E6890; --deep:#31547A;
+  --display:'Archivo',system-ui,sans-serif; --body:'Inter',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{background:var(--base);color:var(--ink);font-family:var(--body);overflow:hidden;-webkit-font-smoothing:antialiased}
+
+.slide{position:absolute;inset:0;display:none;flex-direction:column;justify-content:center;
+  padding:clamp(28px,5.5vh,56px) clamp(34px,6vw,88px) clamp(56px,8vh,82px) clamp(64px,8vw,120px)}
+.slide.on{display:flex}
+.slide.on > *{animation:rise .4s cubic-bezier(.2,.7,.3,1) both}
+.slide.on > *:nth-child(2){animation-delay:.06s}
+.slide.on > *:nth-child(3){animation-delay:.12s}
+@keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.slide.on>*,.bar-fill{animation:none!important}}
+
+.rail{position:fixed;left:clamp(22px,2.5vw,36px);top:0;bottom:0;display:flex;flex-direction:column;
+  justify-content:center;gap:4px;z-index:10}
+.tick{width:2px;height:13px;background:var(--line);border:none;padding:0;border-radius:1px;cursor:pointer;
+  transition:background .3s,height .3s}
+.tick:hover{background:var(--muted)}
+.tick.done{background:#3A5C80}
+.tick.now{background:var(--coral);height:26px}
+.tick:focus-visible{outline:2px solid var(--aqua);outline-offset:3px}
+
+.foot{position:fixed;left:clamp(64px,8vw,120px);right:clamp(34px,6vw,88px);bottom:clamp(18px,3vh,28px);
+  display:flex;justify-content:space-between;align-items:baseline;font-size:11.5px;color:var(--dim);z-index:10}
+.count{font-family:var(--display);font-variant-numeric:tabular-nums}
+.count b{color:var(--ink);font-weight:600}
+
+.sec{font-size:12px;color:var(--aqua);font-weight:500;margin-bottom:15px}
+.sec.cl{color:var(--coral)}
+h1{font-family:var(--display);font-weight:800;line-height:.98;letter-spacing:-.03em;
+  font-size:clamp(36px,6vw,78px);max-width:16ch}
+h2{font-family:var(--display);font-weight:700;line-height:1.06;letter-spacing:-.02em;
+  font-size:clamp(24px,3.4vw,45px);max-width:21ch;margin-bottom:26px}
+h2 em{font-style:normal;color:var(--coral)}
+.lead{font-size:clamp(15px,1.55vw,19px);color:var(--muted);margin-top:18px;max-width:42ch;line-height:1.5}
+p{font-size:clamp(13px,1.1vw,15.5px);line-height:1.6;color:#C3D2E3;max-width:56ch}
+p+p{margin-top:13px}
+.note{font-size:12px;color:var(--dim);line-height:1.55;max-width:68ch;margin-top:18px}
+.hl{color:var(--ink);font-weight:600}
+.cor{color:var(--coral);font-weight:600}
+.aq{color:var(--aqua);font-weight:600}
+
+.cols{display:grid;grid-template-columns:1.2fr .8fr;gap:clamp(28px,4.2vw,60px);align-items:center}
+.cols.even{grid-template-columns:1fr 1fr}
+.cols.flip{grid-template-columns:.85fr 1.15fr}
+.stack{display:flex;flex-direction:column;gap:11px}
+@media (max-width:900px){.cols,.cols.even,.cols.flip{grid-template-columns:1fr;gap:18px}}
+
+table{border-collapse:collapse;width:100%;font-size:clamp(11.5px,1vw,14px);font-variant-numeric:tabular-nums}
+th{text-align:left;font-weight:500;color:var(--dim);font-size:11px;padding:0 13px 8px 0;border-bottom:1px solid var(--line)}
+th.n,td.n{text-align:right;padding-right:0;padding-left:13px}
+td{padding:9px 13px 9px 0;border-bottom:1px solid rgba(34,64,95,.5)}
+tr:last-child td{border-bottom:none}
+td.k{color:var(--ink);font-weight:500}
+td.dim{color:var(--dim)}
+tr.mark td{color:var(--coral)}
+tr.mark td.k{color:var(--coral);font-weight:600}
+
+.figs{display:flex;gap:clamp(30px,4.4vw,64px);flex-wrap:wrap}
+.fig .v{font-family:var(--display);font-weight:800;font-size:clamp(40px,5.4vw,68px);line-height:1;letter-spacing:-.035em}
+.fig .v.c{color:var(--coral)} .fig .v.a{color:var(--aqua)}
+.fig .l{font-size:12px;color:var(--dim);margin-top:8px;max-width:18ch;line-height:1.45}
+
+.bar-row{display:grid;grid-template-columns:minmax(88px,auto) 1fr auto;align-items:center;gap:12px;margin-bottom:9px;font-size:12.5px}
+.bar-row .nm{color:var(--ink)}
+.bar-track{height:18px;background:rgba(34,64,95,.45);border-radius:2px;overflow:hidden}
+.bar-fill{height:100%;border-radius:2px;transform-origin:left;animation:grow .65s cubic-bezier(.2,.8,.3,1) both}
+@keyframes grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.bar-row .vl{font-variant-numeric:tabular-nums;font-weight:600;min-width:42px;text-align:right}
+.bar-row .sm{font-size:10.5px;color:var(--dim);font-variant-numeric:tabular-nums}
+
+svg text{font-family:var(--body)}
+.ax{fill:var(--dim);font-size:10.5px}
+.axn{fill:var(--ink);font-size:11px;font-weight:600}
+.gl{stroke:rgba(34,64,95,.55);stroke-width:1}
+
+.cover .meta{margin-top:auto;padding-top:34px;display:flex;gap:44px;flex-wrap:wrap;font-size:12.5px;color:var(--dim)}
+.cover .meta b{display:block;color:var(--ink);font-weight:600;margin-bottom:3px;font-family:var(--display)}
+.kicker{font-family:var(--display);font-size:clamp(13px,1.4vw,17px);color:var(--aqua);font-weight:500;margin-bottom:24px}
+.ligas{display:flex;gap:clamp(16px,2.4vw,32px);flex-wrap:wrap;margin-top:26px;
+  font-family:var(--display);font-size:clamp(11px,1.05vw,13.5px);font-weight:500;
+  color:var(--dim);letter-spacing:.06em;text-transform:uppercase}
+.ligas span{padding-bottom:7px;border-bottom:2px solid var(--line)}
+
+.steps{display:flex;flex-direction:column;gap:15px;max-width:54ch}
+.step{display:grid;grid-template-columns:auto 1fr;gap:15px;align-items:start}
+.step .b{width:7px;height:7px;border-radius:50%;background:var(--coral);margin-top:7px;flex-shrink:0}
+.step .b.a{background:var(--aqua)}
+.step .num{font-family:var(--display);font-size:13px;font-weight:700;color:var(--coral);
+  width:20px;margin-top:1px;flex-shrink:0}
+.step .t{font-size:clamp(13px,1.14vw,16px);line-height:1.5;color:#C3D2E3}
+.step .t b{color:var(--ink);font-weight:600;display:block;margin-bottom:3px}
+</style>
+</head>
+<body>
+
+<nav class="rail" id="rail" aria-label="Diapositivas"></nav>
+
+<!-- 1 · portada -->
+<section class="slide cover on">
+  <div class="kicker">6.329 episodios · 2.640 jugadores · tres temporadas</div>
+  <h1>Lesiones musculares en el fútbol europeo</h1>
+  <p class="lead">Todas duran lo mismo. Pero no todas vuelven.</p>
+  <div class="ligas">
+    <span>Premier League</span><span>LaLiga</span><span>Serie A</span>
+    <span>Bundesliga</span><span>Ligue 1</span>
+  </div>
+  <div class="meta">
+    <div><b>Román Demarco</b>Kinesiología y Fisiatría · Análisis de datos</div>
+    <div><b>Septiembre 2026</b>R · API-Football</div>
+  </div>
+</section>
+
+<!-- 2 -->
+<section class="slide">
+  <div class="sec">Contexto</div>
+  <h2>¿Todas las lesiones musculares son iguales?</h2>
+  <div class="cols">
+    <p>Isquiotibiales, cuádriceps, gemelo y aductores entran en la misma categoría. La pregunta es si se diferencian en algo que sirva para planificar: cuánto tiempo pierden al jugador, y cuánto riesgo dejan después.</p>
+    <div class="figs"><div class="fig"><div class="v a">39%</div><div class="l">de los episodios son musculares</div></div></div>
+  </div>
+</section>
+
+<!-- 3 -->
+<section class="slide">
+  <div class="sec">Datos y método</div>
+  <h2>De 31.203 ausencias a 6.329 episodios</h2>
+  <div class="cols">
+    <div class="steps">
+      <div class="step"><span class="b a"></span><span class="t">Cada registro es <b style="display:inline">un partido perdido</b>, con el motivo declarado por el club</span></div>
+      <div class="step"><span class="b a"></span><span class="t">Se descartaron <b style="display:inline">5.822</b> que no eran lesión: suspensiones, selecciones, decisiones técnicas</span></div>
+      <div class="step"><span class="b a"></span><span class="t">Las ausencias consecutivas del mismo jugador y tipo, a menos de 45 días, se agruparon en <b style="display:inline">episodios con duración</b></span></div>
+    </div>
+    <table>
+      <tr><th>Liga</th><th class="n">Episodios</th><th class="n">Jugadores</th></tr>
+      <tr><td class="k">LaLiga</td><td class="n">1.425</td><td class="n dim">560</td></tr>
+      <tr><td class="k">Serie A</td><td class="n">1.361</td><td class="n dim">586</td></tr>
+      <tr><td class="k">Premier League</td><td class="n">1.206</td><td class="n dim">543</td></tr>
+      <tr><td class="k">Ligue 1</td><td class="n">1.179</td><td class="n dim">557</td></tr>
+      <tr><td class="k">Bundesliga</td><td class="n">1.158</td><td class="n dim">548</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- 4 -->
+<section class="slide">
+  <div class="sec">Panorama</div>
+  <h2>Qué proporción ocupa cada lesión</h2>
+  <div class="cols">
+    <div id="c-pan"></div>
+    <p class="note">Dentro de las musculares: cuádriceps y muslo 613, gemelo 279, isquiotibiales 274, aductores 188. Otros <span class="hl">1.099</span> quedan sin subtipo — el club declara "lesión muscular" y nada más.</p>
+  </div>
+</section>
+
+<!-- 5 -->
+<section class="slide">
+  <div class="sec">Duración</div>
+  <h2>Las musculares son cortas. Una de cada diez de rodilla, no.</h2>
+  <div class="cols">
+    <div id="c-dur"></div>
+    <p class="note">La mediana importa más que el promedio: la media de rodilla es 9 partidos, un número que casi ningún caso individual cumple. La mitad se resuelve en 6 y uno de cada diez supera los 24.</p>
+  </div>
+</section>
+
+<!-- 6 -->
+<section class="slide">
+  <div class="sec">Control metodológico</div>
+  <h2>¿Medir en partidos o en días?</h2>
+  <div class="cols even">
+    <div class="steps">
+      <div class="step"><span class="b"></span><span class="t"><b>El riesgo</b>Medir en partidos podría confundir gravedad con densidad de calendario: la misma lesión cuesta más partidos si el equipo juega cada tres días.</span></div>
+      <div class="step"><span class="b a"></span><span class="t"><b>Se verificó y no ocurre</b>Entre 7,1 y 7,9 partidos perdidos cada 30 días de baja, en las cinco ligas.</span></div>
+    </div>
+    <table>
+      <tr><th>Tipo</th><th class="n">Partidos</th><th class="n">Días</th><th class="n">p90 días</th></tr>
+      <tr class="mark"><td class="k">Rodilla</td><td class="n">6</td><td class="n">23</td><td class="n">175</td></tr>
+      <tr><td class="k">Tobillo y pie</td><td class="n">3</td><td class="n">14</td><td class="n dim">74</td></tr>
+      <tr><td class="k">Isquiotibiales</td><td class="n">3</td><td class="n">13</td><td class="n dim">54</td></tr>
+      <tr><td class="k">Aductores</td><td class="n">2</td><td class="n">10</td><td class="n dim">61</td></tr>
+      <tr><td class="k">Cuádriceps</td><td class="n">3</td><td class="n">8</td><td class="n dim">56</td></tr>
+      <tr><td class="k">Gemelo y sóleo</td><td class="n">2</td><td class="n">7</td><td class="n dim">42</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- 7 -->
+<section class="slide">
+  <div class="sec">Hallazgo 1</div>
+  <h2>El subtipo <em>no</em> predice cuánto dura</h2>
+  <div class="cols">
+    <table>
+      <tr><th>Subtipo</th><th class="n">Episodios</th><th class="n">Mediana</th><th class="n">p75</th><th class="n">p90</th></tr>
+      <tr><td class="k">Cuádriceps y muslo</td><td class="n dim">613</td><td class="n">3</td><td class="n dim">5</td><td class="n dim">8,0</td></tr>
+      <tr><td class="k">Gemelo y sóleo</td><td class="n dim">279</td><td class="n">2</td><td class="n dim">4</td><td class="n dim">7,0</td></tr>
+      <tr><td class="k">Isquiotibiales</td><td class="n dim">274</td><td class="n">3</td><td class="n dim">6</td><td class="n dim">8,7</td></tr>
+      <tr><td class="k">Aductores</td><td class="n dim">188</td><td class="n">2</td><td class="n dim">5</td><td class="n dim">8,3</td></tr>
+    </table>
+    <p class="note">Saber qué músculo se lesionó no ayuda a estimar cuánto tiempo estará afuera. En los cuatro subtipos, el 90% se resuelve en menos de nueve partidos. Valores en partidos perdidos.</p>
+  </div>
+</section>
+
+<!-- 8 -->
+<section class="slide">
+  <div class="sec">Hallazgo 2</div>
+  <h2>Pero recaen de forma muy distinta</h2>
+  <div class="cols">
+    <div id="c-rec"></div>
+    <p class="note">Uno de cada seis jugadores que se lesiona los isquiotibiales vuelve a lesionárselos dentro del período analizado. En gemelo es uno de cada once.</p>
+  </div>
+</section>
+
+<!-- 9 · clínica -->
+<section class="slide">
+  <div class="sec cl">Lectura clínica</div>
+  <h2>Por qué los isquiotibiales recaen más</h2>
+  <div class="cols flip">
+    <div id="c-anat"></div>
+    <div class="steps">
+      <div class="step"><span class="b"></span><span class="t"><b>Biarticularidad y momento de fuerza</b>Cruzan la cadera y la rodilla. En la oscilación terminal del sprint se elongan en la cadera mientras contraen excéntricamente para desacelerar la tibia. Los aductores actúan sobre todo como estabilizadores pélvicos.</span></div>
+      <div class="step"><span class="b"></span><span class="t"><b>Exigencia neuromuscular a alta velocidad</b>Alta proporción de fibras rápidas (tipo IIX), que se fatigan en los tramos finales del partido. Si no se reentrena la fuerza excéntrica a alta velocidad, la falta de coordinación desencadena la re-ruptura.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 10 -->
+<section class="slide">
+  <div class="sec">Hallazgo 3</div>
+  <h2>El riesgo se concentra al volver</h2>
+  <div class="cols">
+    <div id="c-rea"></div>
+    <p class="note">En isquiotibiales, <span class="cor">uno de cada tres reingresos</span> termina en una nueva lesión dentro de los dos meses. Los datos no permiten distinguir entre retorno prematuro, predisposición individual o carga inadecuada posterior al alta.</p>
+  </div>
+</section>
+
+<!-- 11 · clínica -->
+<section class="slide">
+  <div class="sec cl">Lectura clínica</div>
+  <h2>El alta cae antes del remodelado</h2>
+  <div class="cols flip">
+    <div class="steps">
+      <div class="step"><span class="b"></span><span class="t"><b>Ausencia de dolor no es capacidad funcional</b>El dolor desaparece mucho antes de que la fibra recupere tolerancia al estrés mecánico dinámico.</span></div>
+      <div class="step"><span class="b"></span><span class="t"><b>Falla en los criterios de retorno</b>Dar el alta cuando el jugador no siente dolor al trotar en línea, sin exigir simetría de fuerza entre ambas piernas (LSI ≥ 90%) ni rendimiento funcional dinámico, reintroduce la fibra en zona de falla estructural.</span></div>
+    </div>
+    <div id="c-time"></div>
+  </div>
+</section>
+
+<!-- 12 · protocolo -->
+<section class="slide">
+  <div class="sec cl">Aplicación clínica</div>
+  <h2>Del dato a la conducta</h2>
+  <div class="cols">
+    <div class="steps">
+      <div class="step"><span class="num">1</span><span class="t"><b>Carga excéntrica progresiva</b>De isométricos a isotónicos excéntricos en rango externo, para estimular la síntesis de colágeno sin superar 3/10 en la escala de dolor.</span></div>
+      <div class="step"><span class="num">2</span><span class="t"><b>Criterio objetivo de alta</b>No autorizar el retorno sin al menos 90% de simetría de fuerza entre la pierna lesionada y la sana (Limb Symmetry Index), medida con dinamometría y pruebas funcionales de salto y agilidad.</span></div>
+      <div class="step"><span class="num">3</span><span class="t"><b>Gestión del reingreso</b>Monitoreo del volumen de alta intensidad durante los primeros 60 días tras el alta, para respetar la maduración final del tejido.</span></div>
+    </div>
+    <p class="note">El punto 3 sale directamente del hallazgo: el <span class="cor">34%</span> de las recaídas de isquiotibiales ocurre en esa ventana.</p>
+  </div>
+</section>
+
+<!-- 13 -->
+<section class="slide">
+  <div class="sec">Validación</div>
+  <h2>¿Se puede monitorear sin datos clínicos?</h2>
+  <div class="cols even">
+    <table>
+      <tr><th></th><th class="n">Este análisis</th><th class="n">UEFA ECIS</th></tr>
+      <tr class="mark"><td class="k">Recaída muscular</td><td class="n">17%</td><td class="n">16%</td></tr>
+      <tr><td class="k">Musculares sobre el total</td><td class="n">39%</td><td class="n dim">31%</td></tr>
+      <tr><td class="k">Isquiotibiales en musculares</td><td class="n">20%</td><td class="n dim">37%</td></tr>
+      <tr><td class="k">Fuente</td><td class="n dim">Reportes públicos</td><td class="n dim">Partes médicos</td></tr>
+    </table>
+    <div class="stack">
+      <p>La tasa de recaída coincide. El dato más difícil de medir es el que mejor se reproduce con datos abiertos.</p>
+      <p class="note">Los isquiotibiales aparecen sub-representados: la causa probable es el 45% de casos sin especificar. Las definiciones de recaída no son idénticas, así que la coincidencia vale como orden de magnitud. Ekstrand et al., UEFA Elite Club Injury Study, 2018–2022.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 14 -->
+<section class="slide">
+  <div class="sec">Estacionalidad</div>
+  <h2>Agosto y noviembre concentran los picos</h2>
+  <div class="cols">
+    <div id="c-mes"></div>
+    <p class="note">Agosto está parcialmente inflado por el método: el criterio de 45 días cuenta como nuevos los episodios arrastrados del receso. Noviembre no tiene ese problema: coincide con fecha FIFA y con el tramo más comprimido del calendario.</p>
+  </div>
+</section>
+
+<!-- 15 -->
+<section class="slide">
+  <div class="sec">Estacionalidad</div>
+  <h2>En agosto crecen las musculares y nada más</h2>
+  <div class="cols">
+    <div id="c-ago"></div>
+    <div class="stack">
+      <p>Los episodios musculares de agosto crecieron <span class="cor">87%</span> en dos temporadas. Rodilla y tobillo subieron y volvieron al punto de partida.</p>
+      <p class="note">Si el aumento se debiera a mayor cobertura de datos, subirían todas las categorías. Se probó la hipótesis de los torneos de verano —Mundial de Clubes 2025, Mundial 2026— y no la explica: los equipos participantes no muestran un aumento mayor que el resto.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 16 -->
+<section class="slide">
+  <div class="sec">Limitaciones</div>
+  <h2>Qué no permiten estos datos</h2>
+  <div class="cols">
+    <div class="steps">
+      <div class="step"><span class="b"></span><span class="t"><b>No se pueden comparar ligas</b>Premier especifica el subtipo en el 72% de los casos y LaLiga en el 39%. Se descartó que sea densidad de calendario.</span></div>
+      <div class="step"><span class="b"></span><span class="t"><b>La rodilla no se desagrega</b>El 96% dice solo "Knee Injury": no se separa un esguince de una rotura de cruzado.</span></div>
+      <div class="step"><span class="b"></span><span class="t"><b>No hay exposición</b>Sin minutos jugados no hay incidencia por 1.000 horas, el estándar del campo.</span></div>
+    </div>
+    <div id="c-esp"></div>
+  </div>
+</section>
+
+<!-- 17 -->
+<section class="slide">
+  <div class="sec">Conclusiones</div>
+  <h2>Planificación y seguimiento</h2>
+  <div class="cols even">
+    <div class="steps">
+      <div class="step"><span class="b a"></span><span class="t"><b>Plantel</b>Una muscular cuesta 2 o 3 partidos, sin importar el subtipo, y el 90% se resuelve en menos de nueve. La rodilla tiene mediana similar pero uno de cada diez casos supera los 24.</span></div>
+      <div class="step"><span class="b a"></span><span class="t"><b>Post-lesión</b>Isquiotibiales y cuádriceps recaen casi al doble que gemelo y aductores. Un tercio de esas recaídas ocurre antes de los 60 días. El riesgo no termina con el alta.</span></div>
+    </div>
+    <p class="note">Son patrones poblacionales, no criterios clínicos. Sirven para diseñar protocolos de seguimiento, no para decidir sobre un jugador concreto: cada caso tiene su historia y su contexto.</p>
+  </div>
+</section>
+
+<!-- 18 -->
+<section class="slide">
+  <div class="sec">Conclusiones</div>
+  <h2>Calendario</h2>
+  <div class="cols">
+    <div class="stack">
+      <p>Agosto y noviembre concentran los picos. El aumento sostenido de musculares en agosto merece seguimiento.</p>
+      <p>La hipótesis de los torneos de verano no lo explica, pero la tendencia general del fútbol es hacia más competencias y menos descanso: Mundial de Clubes ampliado, más partidos internacionales, calendarios comprimidos.</p>
+      <p class="note">Verificarlo requiere datos de exposición que esta fuente no tiene.</p>
+    </div>
+    <div class="figs">
+      <div class="fig"><div class="v c">+87%</div><div class="l">musculares en agosto, 2024 a 2026</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 19 -->
+<section class="slide">
+  <div class="sec">Qué sigue</div>
+  <h2>Líneas futuras</h2>
+  <div class="cols">
+    <div class="steps">
+      <div class="step"><span class="b a"></span><span class="t"><b>Minutos jugados</b>Para calcular incidencia por exposición y modelar carga acumulada previa a la lesión.</span></div>
+      <div class="step"><span class="b a"></span><span class="t"><b>Densidad de calendario</b>Días de descanso entre partidos y partidos en ventanas de siete días.</span></div>
+      <div class="step"><span class="b a"></span><span class="t"><b>Modelo de riesgo individual</b>Probabilidad de recaída en función del tiempo transcurrido desde el alta.</span></div>
+    </div>
+    <div class="stack">
+      <p style="font-family:var(--display);font-size:19px;font-weight:600;color:var(--ink)">Román Demarco</p>
+      <p style="color:var(--dim);margin-top:-8px;font-size:13px">romandemarco39@gmail.com<br>github.com/romandemarco</p>
+    </div>
+  </div>
+</section>
+
+<div class="foot">
+  <span id="label"></span>
+  <span class="count"><b id="cur">1</b> / 19</span>
+</div>
+
+<script>
+const CO='#FF6B5B', AQ='#4DD9C0', ST='#3E6890', DP='#31547A';
+
+function barras(el,data,{max,fmt=v=>v,color=AQ}={}){
+  const m=max||Math.max(...data.map(d=>d.v))*1.12;
+  el.innerHTML=data.map((d,i)=>`
+    <div class="bar-row"><span class="nm">${d.n}</span>
+      <div class="bar-track"><div class="bar-fill" style="width:${d.v/m*100}%;background:${d.c||color};animation-delay:${i*60}ms"></div></div>
+      <span class="vl" style="color:${d.c||color}">${fmt(d.v)}</span></div>
+    ${d.s?`<div class="bar-row"><span></span><span class="sm">${d.s}</span><span></span></div>`:''}`).join('');
+}
+
+/* panorama */
+(function(){
+  const d=[{n:'Musculares',v:2453,c:CO},{n:'Sin especificar',v:1595,c:ST},
+           {n:'Rodilla',v:772,c:AQ},{n:'Tobillo y pie',v:606,c:DP},{n:'Resto',v:903,c:'#2A4867'}];
+  const t=d.reduce((a,b)=>a+b.v,0);
+  document.getElementById('c-pan').innerHTML=`
+    <div style="display:flex;height:40px;border-radius:3px;overflow:hidden;margin-bottom:22px">
+      ${d.map(s=>`<div style="flex:${s.v};background:${s.c}"></div>`).join('')}</div>
+    ${d.map(s=>`<div class="bar-row" style="grid-template-columns:12px 1fr auto auto;gap:10px;margin-bottom:8px">
+      <span style="width:10px;height:10px;border-radius:2px;background:${s.c}"></span>
+      <span class="nm">${s.n}</span><span class="sm">${s.v.toLocaleString('es')}</span>
+      <span class="vl" style="color:${s.c};min-width:36px">${Math.round(s.v/t*100)}%</span></div>`).join('')}`;
+})();
+
+/* duración */
+(function(){
+  const d=[{n:'Rodilla',a:6,b:24,c:CO},{n:'Tobillo y pie',a:3,b:11},{n:'Isquiotibiales',a:3,b:8.7},
+           {n:'Cuádriceps',a:3,b:8},{n:'Aductores',a:2,b:8.3},{n:'Gemelo',a:2,b:7}];
+  const W=560,H=240,L=100,R=30,mx=26,x=v=>L+v/mx*(W-L-R);
+  document.getElementById('c-dur').innerHTML=`<svg viewBox="0 0 ${W} ${H}" style="width:100%">
+    ${d.map((s,i)=>{const y=22+i*34,c=s.c||AQ;return `
+      <line class="gl" x1="${L}" y1="${y}" x2="${W-R}" y2="${y}"/>
+      <text class="ax" x="${L-11}" y="${y+4}" text-anchor="end">${s.n}</text>
+      <line x1="${x(s.a)}" y1="${y}" x2="${x(s.b)}" y2="${y}" stroke="${c}" stroke-width="3" opacity=".35" stroke-linecap="round"/>
+      <circle cx="${x(s.a)}" cy="${y}" r="5.5" fill="${c}"/>
+      <circle cx="${x(s.b)}" cy="${y}" r="3.5" fill="${c}" opacity=".7"/>
+      <text class="axn" x="${x(s.b)+10}" y="${y+4}" fill="${c}">${s.b}</text>`}).join('')}
+    <text class="ax" x="${L}" y="${H-10}">Partidos · punto grande = mediana, chico = p90</text></svg>`;
+})();
+
+barras(document.getElementById('c-rec'),[
+  {n:'Isquiotibiales',v:17.9,s:'224 jugadores',c:CO},{n:'Cuádriceps',v:17.5,s:'504 jugadores',c:CO},
+  {n:'Aductores',v:11.4,s:'167 jugadores'},{n:'Gemelo',v:9.4,s:'254 jugadores'}
+],{max:22,fmt:v=>v.toFixed(1)+'%'});
+
+barras(document.getElementById('c-rea'),[
+  {n:'Isquiotibiales',v:34,s:'50 recaídas',c:CO},{n:'Cuádriceps',v:24,s:'109 recaídas'},
+  {n:'Gemelo',v:24,s:'25 recaídas'},{n:'Aductores',v:24,s:'21 recaídas'}
+],{max:42,fmt:v=>v+'%'});
+
+/* esquema anatómico coloreado por tasa de recaída */
+(function(){
+  const col=(p,o=1)=>{const t=Math.max(0,Math.min(1,(p-9.4)/8.5));
+    const r=Math.round(77+(255-77)*t), g=Math.round(217+(107-217)*t), b=Math.round(192+(91-192)*t);
+    return `rgba(${r},${g},${b},${o})`};
+
+  // contorno de pierna en coords locales: x 17..74, y 6..291
+  const PIERNA = `M 26,6 C 16,46 18,98 29,146 C 27,157 26,167 27,175
+                  C 19,200 17,226 23,250 C 25,267 29,280 33,291
+                  L 63,291 C 65,278 67,265 67,250
+                  C 71,223 69,197 61,175 C 62,167 63,157 61,146
+                  C 72,98 74,46 64,6 Z`;
+
+  const lab=(x,y,t)=>`<text x="${x}" y="${y}" text-anchor="middle" font-size="8.5"
+      font-weight="600" fill="#0B1B2E" paint-order="stroke"
+      stroke="rgba(255,255,255,.35)" stroke-width="2">${t}</text>`;
+
+  document.getElementById('c-anat').innerHTML=`
+  <svg viewBox="0 0 320 370" style="width:100%;max-width:330px">
+    <defs>
+      <clipPath id="cpA"><path d="${PIERNA}"/></clipPath>
+      <clipPath id="cpP"><path d="${PIERNA}"/></clipPath>
+      <linearGradient id="esc" x1="0" x2="1">
+        <stop offset="0" stop-color="${col(9.4)}"/><stop offset="1" stop-color="${col(17.9)}"/>
+      </linearGradient>
+    </defs>
+
+    <!-- ======== vista anterior ======== -->
+    <g transform="translate(20,34)">
+      <text class="ax" x="45" y="-12" text-anchor="middle">Vista anterior</text>
+      <path d="${PIERNA}" fill="#152E4A" stroke="#2A4867" stroke-width="1.2"/>
+      <g clip-path="url(#cpA)">
+        <!-- cuádriceps: cara anterior del muslo -->
+        <path d="M 24,20 C 16,58 17,110 28,148 L 56,148 C 60,110 60,58 54,20 Z"
+              fill="${col(17.5,.92)}"/>
+        <!-- aductores: cara medial -->
+        <path d="M 54,22 C 62,52 64,96 57,126 L 74,126 C 80,94 80,52 72,22 Z"
+              fill="${col(11.4,.95)}"/>
+        <!-- estrías -->
+        <g stroke="rgba(11,27,46,.25)" stroke-width="1">
+          <line x1="28" y1="34" x2="33" y2="142"/>
+          <line x1="35" y1="30" x2="39" y2="144"/>
+          <line x1="42" y1="28" x2="45" y2="145"/>
+          <line x1="49" y1="30" x2="50" y2="144"/>
+          <line x1="62" y1="34" x2="62" y2="122"/>
+          <line x1="68" y1="36" x2="68" y2="120"/>
+        </g>
+      </g>
+      <path d="${PIERNA}" fill="none" stroke="#2A4867" stroke-width="1.2"/>
+      ${lab(39,88,'Cuádriceps')}
+      ${lab(66,166,'')}
+    </g>
+    <!-- guía a aductores -->
+    <g class="ax">
+      <line x1="112" y1="106" x2="97" y2="112" stroke="#4A6B8A" stroke-width=".9"/>
+      <text x="115" y="109" font-size="9.5">Aductores</text>
+    </g>
+
+    <!-- ======== vista posterior ======== -->
+    <g transform="translate(196,34)">
+      <text class="ax" x="45" y="-12" text-anchor="middle">Vista posterior</text>
+      <path d="${PIERNA}" fill="#152E4A" stroke="#2A4867" stroke-width="1.2"/>
+      <g clip-path="url(#cpP)">
+        <!-- isquiotibiales: cara posterior del muslo -->
+        <path d="M 22,16 C 14,58 16,112 28,152 L 62,152 C 74,112 76,58 68,16 Z"
+              fill="${col(17.9,.94)}"/>
+        <!-- gemelo y sóleo -->
+        <path d="M 26,182 C 16,206 16,238 28,254 C 38,266 54,266 62,254
+                 C 74,238 74,206 64,182 Z" fill="${col(9.4,.92)}"/>
+        <g stroke="rgba(11,27,46,.25)" stroke-width="1">
+          <line x1="27" y1="30" x2="32" y2="148"/>
+          <line x1="35" y1="24" x2="38" y2="150"/>
+          <line x1="44" y1="22" x2="45" y2="150"/>
+          <line x1="53" y1="24" x2="52" y2="150"/>
+          <line x1="61" y1="30" x2="58" y2="148"/>
+          <line x1="33" y1="192" x2="36" y2="250"/>
+          <line x1="44" y1="188" x2="44" y2="254"/>
+          <line x1="55" y1="192" x2="52" y2="250"/>
+        </g>
+      </g>
+      <path d="${PIERNA}" fill="none" stroke="#2A4867" stroke-width="1.2"/>
+      ${lab(44,90,'Isquiotibiales')}
+      ${lab(44,222,'Gemelo')}
+    </g>
+
+    <!-- ======== leyenda ======== -->
+    <g transform="translate(20,352)">
+      <text class="ax" x="0" y="0">Tasa de recaída</text>
+      <text class="ax" x="98" y="0" text-anchor="end">9%</text>
+      <rect x="104" y="-8.5" width="88" height="9" rx="1.5" fill="url(#esc)"/>
+      <text class="ax" x="198" y="0">18%</text>
+    </g>
+  </svg>`;
+})();
+
+/* timeline cicatrización */
+(function(){
+  const W=400,H=225,L=30,R=20,mx=42,x=d=>L+d/mx*(W-L-R);
+  document.getElementById('c-time').innerHTML=`<svg viewBox="0 0 ${W} ${H}" style="width:100%">
+    <rect x="${x(0)}" y="74" width="${x(3)-x(0)}" height="28" rx="2" fill="#8A4A6B"/>
+    <rect x="${x(3)}" y="74" width="${x(21)-x(3)-1}" height="28" rx="2" fill="${ST}"/>
+    <rect x="${x(21)}" y="74" width="${x(42)-x(21)}" height="28" rx="2" fill="${AQ}" opacity=".75"/>
+    <rect x="${x(10)}" y="44" width="${x(14)-x(10)}" height="58" fill="${CO}" opacity=".16"/>
+    <line x1="${x(10)}" y1="44" x2="${x(10)}" y2="102" stroke="${CO}" stroke-width="1.5" stroke-dasharray="4 3"/>
+    <line x1="${x(14)}" y1="44" x2="${x(14)}" y2="102" stroke="${CO}" stroke-width="1.5" stroke-dasharray="4 3"/>
+    <text x="${x(12)}" y="36" fill="${CO}" font-size="11.5" font-weight="600" text-anchor="middle">Alta observada</text>
+    <text x="${x(12)}" y="22" fill="${CO}" font-size="10" text-anchor="middle" opacity=".8">10–14 días</text>
+    <text x="${x(1.5)}" y="119" class="ax" text-anchor="middle" font-size="9">Inflam.</text>
+    <text x="${x(12)}" y="119" class="ax" text-anchor="middle">Proliferativa</text>
+    <text x="${x(31)}" y="119" class="ax" text-anchor="middle">Remodelado</text>
+    <line class="gl" x1="${L}" y1="138" x2="${W-R}" y2="138"/>
+    ${[0,7,14,21,30,42].map(d=>`<text class="ax" x="${x(d)}" y="153" text-anchor="middle">${d}</text>`).join('')}
+    <text class="ax" x="${(L+W-R)/2}" y="172" text-anchor="middle">Días desde la lesión</text>
+    <text class="ax" x="${L}" y="198" font-size="10">El alta cae antes de que empiece el</text>
+    <text class="ax" x="${L}" y="212" font-size="10">remodelado del colágeno.</text></svg>`;
+})();
+
+/* mensual */
+(function(){
+  const d=[['Ene',224],['Feb',213],['Mar',262],['Abr',241],['May',230],['Ago',290],['Sep',234],['Oct',231],['Nov',282],['Dic',246]];
+  const W=560,H=230,B=40,T=20,mx=312,bw=(W-40)/d.length;
+  document.getElementById('c-mes').innerHTML=`<svg viewBox="0 0 ${W} ${H}" style="width:100%">
+    ${d.map(([m,v],i)=>{const h=v/mx*(H-B-T),y=H-B-h,px=20+i*bw,hot=m==='Ago'||m==='Nov';return `
+      <rect x="${px+5}" y="${y}" width="${bw-10}" height="${h}" rx="2" fill="${hot?CO:DP}"/>
+      <text class="ax" x="${px+bw/2}" y="${H-B+15}" text-anchor="middle">${m}</text>
+      <text class="${hot?'axn':'ax'}" x="${px+bw/2}" y="${y-6}" text-anchor="middle" ${hot?`fill="${CO}"`:''}>${v}</text>`}).join('')}
+    <line class="gl" x1="20" y1="${H-B}" x2="${W-20}" y2="${H-B}"/></svg>`;
+})();
+
+/* agosto */
+(function(){
+  const d=[['2024',67,106],['2025',98,132],['2026',125,106]];
+  const W=560,H=235,B=44,T=22,mx=148,gw=(W-70)/3;
+  document.getElementById('c-ago').innerHTML=`<svg viewBox="0 0 ${W} ${H}" style="width:100%">
+    ${d.map(([a,mu,re],i)=>{const px=45+i*gw,bw=gw*.3,hm=mu/mx*(H-B-T),hr=re/mx*(H-B-T);return `
+      <rect x="${px}" y="${H-B-hm}" width="${bw}" height="${hm}" rx="2" fill="${CO}"/>
+      <text class="axn" x="${px+bw/2}" y="${H-B-hm-7}" text-anchor="middle" fill="${CO}">${mu}</text>
+      <rect x="${px+bw+9}" y="${H-B-hr}" width="${bw}" height="${hr}" rx="2" fill="${DP}"/>
+      <text class="ax" x="${px+bw*1.5+9}" y="${H-B-hr-7}" text-anchor="middle">${re}</text>
+      <text class="ax" x="${px+bw+5}" y="${H-B+16}" text-anchor="middle">${a}</text>`}).join('')}
+    <line class="gl" x1="30" y1="${H-B}" x2="${W-20}" y2="${H-B}"/>
+    <rect x="30" y="${H-17}" width="10" height="10" rx="2" fill="${CO}"/><text class="ax" x="46" y="${H-8}">Musculares</text>
+    <rect x="140" y="${H-17}" width="10" height="10" rx="2" fill="${DP}"/><text class="ax" x="156" y="${H-8}">Rodilla y tobillo</text></svg>`;
+})();
+
+barras(document.getElementById('c-esp'),[
+  {n:'Premier',v:72},{n:'Ligue 1',v:64},{n:'Serie A',v:59},{n:'Bundesliga',v:48},{n:'LaLiga',v:39,c:CO}
+],{max:80,fmt:v=>v+'%'});
+
+/* navegación */
+const slides=[...document.querySelectorAll('.slide')];
+const labels=['Portada','Contexto','Datos y método','Panorama','Duración','Partidos o días',
+  'El subtipo no predice','Recurrencia','Por qué recaen más','Recaídas tempranas',
+  'El alta y el remodelado','Del dato a la conducta','Validación','Estacionalidad','Agosto',
+  'Limitaciones','Planificación','Calendario','Qué sigue'];
+const rail=document.getElementById('rail');
+slides.forEach((s,i)=>{const b=document.createElement('button');b.className='tick';
+  b.setAttribute('aria-label',labels[i]);b.onclick=e=>{e.stopPropagation();go(i)};rail.appendChild(b)});
+const ticks=[...rail.children];
+let n=0;
+function go(i){
+  n=Math.max(0,Math.min(slides.length-1,i));
+  slides.forEach((s,j)=>s.classList.toggle('on',j===n));
+  ticks.forEach((t,j)=>{t.classList.toggle('now',j===n);t.classList.toggle('done',j<n)});
+  document.getElementById('cur').textContent=n+1;
+  document.getElementById('label').textContent=labels[n];
+}
+addEventListener('keydown',e=>{
+  if(['ArrowRight','ArrowDown',' ','PageDown'].includes(e.key)){e.preventDefault();go(n+1)}
+  if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();go(n-1)}
+  if(e.key==='Home')go(0); if(e.key==='End')go(slides.length-1);
+});
+addEventListener('click',e=>{if(e.target.closest('.rail'))return;go(e.clientX>innerWidth*.35?n+1:n-1)});
+let t0=null;
+addEventListener('touchstart',e=>t0=e.changedTouches[0].clientX,{passive:true});
+addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-t0;if(Math.abs(dx)>50)go(dx<0?n+1:n-1)},{passive:true});
+go(0);
+</script>
+</body>
+</html>
