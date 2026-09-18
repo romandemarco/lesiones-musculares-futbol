@@ -20,7 +20,8 @@ aductores. ¿Se diferencian en algo que sirva para planificar?
 menos de nueve. Saber qué músculo se lesionó no ayuda a estimar cuánto tiempo
 estará afuera el jugador.
 
-**En recurrencia, sí.**
+**En recurrencia, sí.** Isquiotibiales y cuádriceps recaen el doble que aductores
+y gemelo.
 
 | Subtipo | Jugadores | Tasa de recaída |
 |---|---|---|
@@ -29,15 +30,15 @@ estará afuera el jugador.
 | Aductores | 167 | 11,4% |
 | Gemelo y sóleo | 254 | 9,4% |
 
-**El riesgo se concentra al volver.** En isquiotibiales, el 34% de las recaídas
-ocurre dentro de los 60 días del alta.
+De cada seis jugadores que se lesionan los isquiotibiales o el cuádriceps, uno
+vuelve a lesionarse el mismo músculo. En aductores y gemelo es uno de cada diez.
 
-**Y las lesiones musculares de agosto crecieron 87% en dos temporadas** — de 67
-episodios en 2024 a 125 en 2026 — mientras rodilla y tobillo se mantuvieron
-estables. Ese contraste descarta que se deba a mayor cobertura de datos. Se
-probó la hipótesis de los torneos de verano (Mundial de Clubes 2025, Mundial
-2026) y no la explica: los equipos participantes no muestran un aumento mayor
-que el resto.
+Dos explicaciones clínicas son posibles, y los datos no permiten separarlas: la
+exigencia biarticular —los isquiotibiales cruzan cadera y rodilla, y en el
+cuádriceps solo el recto femoral hace algo parecido— o el tipo de fibra, ya que
+isquiotibiales y cuádriceps predominan en fibras rápidas y el sóleo en fibras
+lentas. La fuente registra "lesión de muslo" sin aclarar qué músculo
+exactamente.
 
 ## Validación contra la literatura
 
